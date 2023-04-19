@@ -1,0 +1,49 @@
+*ddu-source-vim_function.txt*	Vim function source for ddu.vim
+
+Author: flow6852
+License: MIT license
+
+CONTENTS				*ddu-source-vim_function-contents*
+
+Introduction		|ddu-source-vim_function-introduction|
+Install			|ddu-source-vim_function-install|
+Examples		|ddu-source-vim_function-examples|
+Params			|ddu-source-vim_function-params|
+
+
+==============================================================================
+INTRODUCTION				*ddu-source-vim_function-introduction*
+
+This source collects vim function.
+
+
+==============================================================================
+INSTALL					*ddu-source-vim_function-install*
+
+Please install both "ddu.vim" and "denops.vim" and "ddu-kind-vim_type".
+
+https://github.com/Shougo/ddu.vim
+https://github.com/vim-denops/denops.vim
+https://github.com/flow6852/ddu-kind-vim_type
+
+
+==============================================================================
+EXAMPLES				*ddu-source-vim_function-examples*
+>
+>
+    cmap <silent> <C-h> <Cmd>call DduKindVim_typeSetcmdline()<CR>
+    
+    function DduKindVim_typeSetcmdline()
+        let getcmdline = getcmdline()
+        call feedkeys("\<Esc>", 't')
+        call ddu#start({'name': 'vim_function', 'sources': [
+            \ {'name': 'vim_function'},
+            \ 'actionParams': {'getcmdline': getcmdline}})
+    endfunction
+>
+
+==============================================================================
+PARAMS					*ddu-source-vim_function-params*
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:noet:
