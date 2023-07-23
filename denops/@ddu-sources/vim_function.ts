@@ -2,8 +2,8 @@ import {
   BaseSource,
   Item,
   SourceOptions,
-} from "https://deno.land/x/ddu_vim@v3.0.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.0.0/deps.ts";
+} from "https://deno.land/x/ddu_vim@v3.4.3/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.3/deps.ts";
 
 type Params = Record<never, never>;
 
