@@ -4,6 +4,7 @@ import {
   SourceOptions,
 } from "https://deno.land/x/ddu_vim@v3.4.3/types.ts";
 import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.3/deps.ts";
+import { assert, is } from "https://deno.land/x/unknownutil@v3.4.0/mod.ts";
 
 type Params = Record<never, never>;
 
@@ -30,12 +31,14 @@ export class Source extends BaseSource<Params> {
 
 async function getFunctions(denops: Denops) {
   const items: Item[] = [];
+  const functionItems = await fn.getcompletion(
+    denops,
+    "",
+    "function",
+  );
+  assert(functionItems, is.ArrayOf(is.String));
   for (
-    const item of (await fn.getcompletion(
-      denops,
-      "",
-      "function",
-    ) as Array<string>)
+    const item of functionItems
   ) {
     let value = "";
     try {
@@ -43,10 +46,11 @@ async function getFunctions(denops: Denops) {
         denops,
         "function " +
           item.split("(")[0],
-      ) as string;
+      );
     } catch {
       value = "maybe builtin, check";
     }
+    assert(value, is.String)
     items.push({
       word: item.at(-1) == ")" ? item : item + ")",
       action: {
