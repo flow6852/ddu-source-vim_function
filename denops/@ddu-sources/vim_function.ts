@@ -6,7 +6,9 @@ import {
 import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.3/deps.ts";
 import { assert, is } from "https://deno.land/x/unknownutil@v3.4.0/mod.ts";
 
-type Params = Record<never, never>;
+type Params = {
+  pattern: string;
+};
 
 export class Source extends BaseSource<Params> {
   override kind = "vim_type";
@@ -18,22 +20,22 @@ export class Source extends BaseSource<Params> {
   }): ReadableStream<Item[]> {
     return new ReadableStream<Item[]>({
       async start(controller) {
-        controller.enqueue(await getFunctions(args.denops));
+        controller.enqueue(await getFunctions(args.denops, args.sourceParams));
         controller.close();
       },
     });
   }
 
   override params(): Params {
-    return {};
+    return { pattern: "" };
   }
 }
 
-async function getFunctions(denops: Denops) {
+async function getFunctions(denops: Denops, sourceParams: Params) {
   const items: Item[] = [];
   const functionItems = await fn.getcompletion(
     denops,
-    "",
+    sourceParams.pattern,
     "function",
   );
   assert(functionItems, is.ArrayOf(is.String));
@@ -50,7 +52,7 @@ async function getFunctions(denops: Denops) {
     } catch {
       value = "maybe builtin, check";
     }
-    assert(value, is.String)
+    assert(value, is.String);
     items.push({
       word: item.at(-1) == ")" ? item : item + ")",
       action: {
