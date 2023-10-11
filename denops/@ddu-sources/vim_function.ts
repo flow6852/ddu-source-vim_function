@@ -2,9 +2,9 @@ import {
   BaseSource,
   Item,
   SourceOptions,
-} from "https://deno.land/x/ddu_vim@v3.4.3/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.3/deps.ts";
-import { assert, is } from "https://deno.land/x/unknownutil@v3.4.0/mod.ts";
+} from "https://deno.land/x/ddu_vim@v3.6.0/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.6.0/deps.ts";
+import { assert, is } from "https://deno.land/x/unknownutil@v3.6.0/mod.ts";
 
 type Params = {
   pattern: string;
